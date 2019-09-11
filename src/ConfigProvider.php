@@ -12,13 +12,15 @@ declare(strict_types=1);
 
 namespace Firstphp\FirstphpWxapp;
 
+use Firstphp\FirstphpWxapp\Facades\WxappFactory;
+
 class ConfigProvider
 {
     public function __invoke(): array
     {
         return [
             'dependencies' => [
-                WxappInterface::class => WxappServer::class
+                WxappInterface::class => WxappFactory::class
             ],
             'commands' => [
             ],  

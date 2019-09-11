@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Firstphp\FirstphpWxapp;
+namespace Firstphp\FirstphpWxapp\Facades;
 
 
+use Firstphp\FirstphpWxapp\WxappServer;
 use Hyperf\Contract\ConfigInterface;
 use Psr\Container\ContainerInterface;
 
@@ -14,8 +15,8 @@ class WxappFactory
 
     public function __invoke(ContainerInterface $container)
     {
-        $config = $container->get(ConfigInterface::class);
-        return make(WxappServer::class, $config->get('wxapp'));
+        $contents = $container->get(ConfigInterface::class);
+        return new WxappServer($contents->get("wxapp"));
     }
 
 }
