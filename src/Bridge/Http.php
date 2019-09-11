@@ -53,7 +53,7 @@ class Http
 
     public function setComponentId()
     {
-        $this->componentAppid = config('wechat.component_id');
+        $this->componentAppid = config('wxapp.component_id');
     }
 
 
