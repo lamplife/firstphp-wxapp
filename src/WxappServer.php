@@ -6,7 +6,7 @@
  * Time: 下午16:20
  */
 
-namespace Hyperf\FirstphpWxapp;
+namespace Firstphp\FirstphpWxapp;
 
 
 class WxappServer implements WxappInterface

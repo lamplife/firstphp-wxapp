@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hyperf\FirstphpWxapp;
+namespace Firstphp\FirstphpWxapp;
 
 
 use Hyperf\Contract\ConfigInterface;
