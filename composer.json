@@ -1,11 +1,11 @@
 {
     "name": "firstphp/firstphp-wxapp",
-    "description": "微信小程序开发组件",
+    "description": "微信小程序开发组 for hyperf",
     "type": "library",
     "keywords": ["微信", "微信小程序", "微信API", "微信用户授权", "hyperf"],
     "homepage": "http://www.firstphp.com/",
     "license": "MIT",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "authors": [
         {
             "name": "狂奔的蚂蚁",
