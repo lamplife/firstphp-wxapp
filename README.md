@@ -34,7 +34,7 @@
 
 示例代码：
 
-    use Firstphp\FirstphpWxapp\WxappFactory;
+    use Firstphp\FirstphpWxapp\WxappInterface;
 
     ......
 
