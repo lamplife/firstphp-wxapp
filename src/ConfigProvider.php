@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace Firstphp\FirstphpWxapp;
 
-use Firstphp\FirstphpWxapp\Facades\WxappFactory;
 
 class ConfigProvider
 {
@@ -20,7 +19,7 @@ class ConfigProvider
     {
         return [
             'dependencies' => [
-                WxappInterface::class => WxappFactory::class
+                \Firstphp\FirstphpWxapp\WxappInterface::class => \Firstphp\FirstphpWxapp\Facades\WxappFactory::class
             ],
             'commands' => [
             ],  
