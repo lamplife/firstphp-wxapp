@@ -25,12 +25,6 @@
 	WECHAT_AES_KEY=mWm1DkAVBAZD2L5rs3QWKeoWa62wLumjqCXG9HifLdM
 
 
-编辑 config/dependencies.php 并新增
-
-    'dependencies' => [
-        \Firstphp\FirstphpWxapp\WxappInterface::class => \Firstphp\FirstphpWxapp\Facades\WxappFactory::class
-    ],
-
 
 示例代码：
 
