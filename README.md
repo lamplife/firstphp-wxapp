@@ -9,11 +9,7 @@
 
 发布配置:
 
-	cp vendor/firstphp/firstphp-wxapp/src/Config/wxapp.php config/autoload
-
-	或
-
-	php bin/hyperf.php vendor:publish firstphp/firstphp-wxapp
+    php bin/hyperf.php vendor:publish firstphp/firstphp-wxapp
 
 
 
@@ -38,7 +34,7 @@
      */
     protected $wxappInterface;
 
-    public function wxlogin() {
+    public function test() {
         $res = $this->wxappInterface->getAccessToken();
         var_dump($res);
     }

@@ -34,7 +34,7 @@ class ConfigProvider
                 [
                     'id' => 'config',
                     'description' => 'The config for firstphp-wxapp.',
-                    'source' => __DIR__ . '/../publish/wxapp.php',
+                    'source' => __DIR__ . '/publish/wxapp.php',
                     'destination' => BASE_PATH . '/config/autoload/wxapp.php',
                 ],
             ],
