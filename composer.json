@@ -1,18 +1,22 @@
 {
     "name": "firstphp/firstphp-wxapp",
-    "description": "微信小程序开发组件 for hyperf",
     "type": "library",
-    "keywords": ["微信", "微信小程序", "微信API", "微信用户授权", "hyperf"],
-    "homepage": "http://www.firstphp.com/",
     "license": "MIT",
-    "version": "1.6.3",
+    "version": "1.6.4",
     "authors": [
         {
             "name": "狂奔的蚂蚁",
             "email": "firstphp@firstphp.com"
         }
     ],
-    "minimum-stability": "dev",
+    "keywords": [
+        "微信",
+        "微信小程序",
+        "微信API",
+        "微信用户授权",
+        "hyperf"
+    ],
+    "description": "微信小程序开发组件 for hyperf",
     "autoload": {
         "psr-4": {
             "Firstphp\\FirstphpWxapp\\": "src/"
@@ -24,14 +28,24 @@
         }
     },
     "require": {
-        "php": ">=7.2"
+        "php": ">=7.2",
+        "ext-swoole": ">=4.4",
+        "hyperf/framework": "1.1.*",
+        "hyperf/di": "1.1.*"
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.14",
+        "phpstan/phpstan": "^0.10.5",
+        "hyperf/testing": "1.1.*",
+        "swoft/swoole-ide-helper": "dev-master"
     },
     "config": {
         "sort-packages": true
     },
     "scripts": {
+        "test": "co-phpunit -c phpunit.xml --colors=always",
+        "analyze": "phpstan analyse --memory-limit 300M -l 0 ./src",
+        "cs-fix": "php-cs-fixer fix $1"
     },
     "extra": {
         "hyperf": {
