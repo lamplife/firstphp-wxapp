@@ -222,6 +222,39 @@ class WxappClient implements WxappInterface
 
 
     /**
+     * 检验数据的真实性，并且获取解密后的明文.
+     * @param $encryptedData string 加密的用户数据
+     * @param $iv string 与用户数据一同返回的初始向量
+     * @param $data string 解密后的原文
+     *
+     * @return int 成功0，失败返回对应的错误码
+     */
+    public function decryptData(string $encryptedData = '', string $iv = '', string $sessionKey = '') {
+        if (strlen($sessionKey) != 24) {
+            return ['code' => self::ILLEGAL_AES_KEY, 'message' => 'sessionKey is error'];
+        }
+        $aesKey = base64_decode($sessionKey);
+        if (strlen($iv) != 24) {
+            return ['code' => self::ILLEGAL_IV, 'message' => 'iv is error'];
+        }
+        $aesIV = base64_decode($iv);
+        $aesCipher = base64_decode($encryptedData);
+        $result = openssl_decrypt($aesCipher, "AES-128-CBC", $aesKey, 1, $aesIV);
+        $dataObj = json_decode($result);
+
+        if ($dataObj == NULL) {
+            return ['code' => self::ILLEGAL_BUFFER, 'message' => 'buffer is error'];
+        }
+
+        if ($dataObj->watermark->appid != $this->appid) {
+            return ['code' => self::ILLEGAL_BUFFER, 'message' => 'Hacking Attempt'];
+        }
+
+        return ['code' => self::OK, 'message' => 'success', 'data' => $dataObj];
+    }
+
+
+    /**
      * 组合模板消息
      *
      * @param array $params

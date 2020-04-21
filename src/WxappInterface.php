@@ -96,4 +96,15 @@ interface WxappInterface
      */
     public function imgSecCheck(string $media, string $accessToken = '');
 
+
+    /**
+     * 检验数据的真实性，并且获取解密后的明文.
+     *
+     * @param string $encryptedData
+     * @param string $iv
+     * @param string $sessionKey
+     * @return mixed
+     */
+    public function decryptData(string $encryptedData, string $iv, string $sessionKey);
+
 }
