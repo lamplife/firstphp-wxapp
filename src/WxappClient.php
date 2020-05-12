@@ -142,25 +142,6 @@ class WxappClient implements WxappInterface
 
 
     /**
-     * 生成小程序二维码
-     */
-    public function getWxacodeunlimi11t($path = '/', $accessToken = '') {
-        $params = [
-            'scene' => 'id=1',
-            'path' => $path,
-            'width' => 430,
-        ];
-        $res = $this->httpPostJson('https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token='.$accessToken, json_encode($params));
-        $decodeRes = json_decode($res[1], true);
-        if (isset($decodeRes['errcode'])) {
-            return ['code' => $decodeRes['errcode'], 'msg' =>$decodeRes['errmsg']];
-        } else {
-            return ['code' => 200, 'data' => $res[1]];
-        }
-    }
-
-
-    /**
      * @param string $scene
      * @param string $page
      * @param string $accessToken
@@ -176,6 +157,25 @@ class WxappClient implements WxappInterface
                 'width' => $width,
             ]
         ]);
+    }
+
+
+    /**
+     * 生成小程序二维码
+     */
+    public function getWxacodeunlimit2($path = '/', $accessToken = '') {
+        $params = [
+            'scene' => 'id=1',
+            'path' => $path,
+            'width' => 430,
+        ];
+        $res = $this->httpPostJson('https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token='.$accessToken, json_encode($params));
+        $decodeRes = json_decode($res[1], true);
+        if (isset($decodeRes['errcode'])) {
+            return ['code' => $decodeRes['errcode'], 'msg' =>$decodeRes['errmsg']];
+        } else {
+            return ['code' => 200, 'data' => $res[1]];
+        }
     }
 
 
@@ -307,7 +307,6 @@ class WxappClient implements WxappInterface
         $tempMsg['data'] = $data;
 
         return $tempMsg;
-
     }
 
 
@@ -331,5 +330,86 @@ class WxappClient implements WxappInterface
         return $sign;
     }
 
+
+    /**
+     * 统一下单
+     *
+     * @param string $xmlData
+     * @param int $second
+     * @return int|mixed
+     */
+    public function unifiedorder(string $xmlData, int $second) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_TIMEOUT, $second);
+        curl_setopt($ch,CURLOPT_URL, $url = 'https://api.mch.weixin.qq.com/pay/unifiedorder');
+        curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,TRUE);
+        curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,2);
+        curl_setopt($ch, CURLOPT_HEADER, FALSE);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $xmlData);
+        $data = curl_exec($ch);
+        if($data){
+            curl_close($ch);
+            return $data;
+        } else {
+            $error = curl_errno($ch);
+            curl_close($ch);
+            return $error;
+        }
+    }
+
+
+    /**
+     * dataToXml
+     *
+     * @param array $data
+     * @return string
+     */
+    public function dataToXml(array $data) {
+        if ($data) {
+            $xml = "<xml>";
+            foreach ($data as $key => $val) {
+                if (is_numeric($val)){
+                    $xml.="<".$key.">".$val."</".$key.">";
+                }else{
+                    $xml.="<".$key."><![CDATA[".$val."]]></".$key.">";
+                }
+            }
+            $xml.="</xml>";
+            return $xml;
+        }
+    }
+
+
+    /**
+     * 以post方式提交xml到对应的接口url
+     *
+     * @param string $xml  需要post的xml数据
+     * @param string $url  url
+     * @param bool $useCert 是否需要证书，默认不需要
+     * @param int $second   url执行超时时间，默认30s
+     * @return int|mixed
+     */
+    public function postXmlCurl(string $xml, string $url, bool $useCert = false, int $second = 30) {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_TIMEOUT, $second);
+        curl_setopt($ch,CURLOPT_URL, $url);
+        curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,TRUE);
+        curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,2);
+        curl_setopt($ch, CURLOPT_HEADER, FALSE);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($ch, CURLOPT_POST, TRUE);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
+        $data = curl_exec($ch);
+        if($data){
+            curl_close($ch);
+            return $data;
+        } else {
+            $error = curl_errno($ch);
+            curl_close($ch);
+            return $error;
+        }
+    }
 
 }

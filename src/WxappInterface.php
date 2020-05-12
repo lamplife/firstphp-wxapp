@@ -88,6 +88,16 @@ interface WxappInterface
 
 
     /**
+     * 获取小程序码 - 适用于需要的码数量极多的业务场景(永久有效，数量暂无限制)
+     *
+     * @param string $path
+     * @param string $accessToken
+     * @return mixed
+     */
+    public function getWxacodeunlimit2($path = '/', $accessToken = '');
+
+
+    /**
      * 校验一张图片是否含有违法违规内容
      *
      * @param string $media
@@ -106,5 +116,52 @@ interface WxappInterface
      * @return mixed
      */
     public function decryptData(string $encryptedData, string $iv, string $sessionKey);
+
+
+    /**
+     * 组合模板消息
+     *
+     * @param array $params
+     * @return mixed
+     */
+    public function templateMsg(array $params = []);
+
+
+    /**
+     * 获取签名
+     *
+     * @param array $params
+     * @param string $key
+     * @return mixed
+     */
+    public function getSign(array $params, string $key);
+
+
+    /**
+     * @param array $data
+     * @return mixed
+     */
+    public function dataToXml(array $data);
+
+
+    /**
+     * 统一下单
+     *
+     * @param string $xmlData
+     * @param int $second
+     * @return mixed
+     */
+    public function unifiedorder(string $xmlData, int $second = 30);
+
+
+    /**
+     * @param string $xml
+     * @param string $url
+     * @param bool|false $useCert
+     * @param int $second
+     * @return mixed
+     */
+    public function postXmlCurl(string $xml, string $url, bool $useCert = false, int $second = 30);
+
 
 }
