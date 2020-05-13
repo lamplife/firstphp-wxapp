@@ -317,7 +317,7 @@ class WxappClient implements WxappInterface
      * @param string $key
      * @return string
      */
-    public function getSign(array $params, string $key)
+    public function makeSign(array $params, string $key)
     {
         ksort($params);
         $str = '';
@@ -334,11 +334,12 @@ class WxappClient implements WxappInterface
     /**
      * 统一下单
      *
-     * @param string $xmlData
+     * @param array $orderData
      * @param int $second
      * @return int|mixed
      */
-    public function unifiedorder(string $xmlData, int $second) {
+    public function unifiedorder(array $orderData, int $second = 30) {
+        $xmlData = $this->dataToXml($orderData);
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_TIMEOUT, $second);
         curl_setopt($ch,CURLOPT_URL, $url = 'https://api.mch.weixin.qq.com/pay/unifiedorder');
@@ -379,6 +380,17 @@ class WxappClient implements WxappInterface
             $xml.="</xml>";
             return $xml;
         }
+    }
+
+
+    /**
+     * @param string $xml
+     * @return mixed
+     */
+    public function fromXml(string $xml) {
+        libxml_disable_entity_loader(true);
+        $this->values = json_decode(json_encode(simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
+        return $this->values;
     }
 
 

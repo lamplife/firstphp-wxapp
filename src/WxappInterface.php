@@ -134,7 +134,7 @@ interface WxappInterface
      * @param string $key
      * @return mixed
      */
-    public function getSign(array $params, string $key);
+    public function makeSign(array $params, string $key);
 
 
     /**
@@ -145,13 +145,20 @@ interface WxappInterface
 
 
     /**
+     * @param string $xml
+     * @return mixed
+     */
+    public function fromXml(string $xml);
+
+
+    /**
      * 统一下单
      *
-     * @param string $xmlData
+     * @param array $orderData
      * @param int $second
      * @return mixed
      */
-    public function unifiedorder(string $xmlData, int $second = 30);
+    public function unifiedorder(array $orderData, int $second = 30);
 
 
     /**
