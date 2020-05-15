@@ -245,11 +245,6 @@ class WxappClient implements WxappInterface
         if ($dataObj == NULL) {
             return ['code' => self::ILLEGAL_BUFFER, 'message' => 'buffer is error'];
         }
-
-        if (isset($dataObj['watermark']['appid']) && $dataObj['watermark']['appid'] != $this->appid) {
-            return ['code' => self::ILLEGAL_BUFFER, 'message' => 'Hacking Attempt'];
-        }
-
         return ['code' => self::OK, 'message' => 'success', 'data' => $dataObj];
     }
 
