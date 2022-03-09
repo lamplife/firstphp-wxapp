@@ -98,6 +98,16 @@ interface WxappInterface
 
 
     /**
+     * 生成的小程序 scheme 码
+     *
+     * @param array $jump_wxa
+     * @param string $accessToken
+     * @return mixed
+     */
+    public function generatescheme(array $jump_wxa = [], string $accessToken = '');
+
+
+    /**
      * 校验一张图片是否含有违法违规内容
      *
      * @param string $media

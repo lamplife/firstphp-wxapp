@@ -181,6 +181,24 @@ class WxappClient implements WxappInterface
 
 
     /**
+     * 生成的小程序 scheme 码
+     *
+     * @param array $jump_wxa
+     * @param string $accessToken
+     * @return mixed
+     */
+    public function generatescheme(array $jump_wxa = [], string $accessToken = '')
+    {
+        return $this->http->post('wxa/generatescheme?access_token=' . $accessToken, [
+            'json' => [
+                'is_expire' => false,
+                'jump_wxa' => $jump_wxa,
+            ]
+        ]);
+    }
+
+
+    /**
      * @param array $params
      * @param string $accessToken
      */
